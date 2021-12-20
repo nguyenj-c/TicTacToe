@@ -1,6 +1,8 @@
 # Installation
 Faire :
 
+```compose install```
+Pour télécharger le dossier vendor avec PHPUnit
 ```docker-compose build```
 
 Puis 
