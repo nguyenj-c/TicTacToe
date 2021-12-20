@@ -73,45 +73,62 @@ final class Morpion
     {
         if ($this->verificarBoard($board) == false) {
             $board2 = $this->convertString($board);
-            $this->affichage($board2);
-            foreach ($board2 as $column) {
-                foreach ($column as $line) {
-                    /*if ($board2[0][$line] == $board2[1][$line] && $board2[1][$line] == $board2[2][$line]) {
-                        return $board2[0][$line] . " wins";*/
-                }
+            //$this->affichage($board2);
+            foreach ($board2 as $column) {     
                 if ($column[0] == $column[1] && $column[1] == $column[2]) {
-                    echo $board[$column][0] . $board[$column][1] . $board[$column][2] . " wins\n";
+                    $str = $board[0];
+                    return $str;
                 }
             }
+            $j = 0;
+            for($i = 0; $i < 3; ++$i){
+                $k = $j;
+                if ($board2[$k][$i] == $board2[$k+1][$i] && $board2[$k+1][$i] == $board2[$k+2][$i]) {
+                    $str = $board[$k][$i];
+                    return $str;
+                } 
+                ++$k;
+            } 
             if ($board2[0][0] == $board2[1][1] && $board2[1][1] == $board2[2][2]) {
-                echo $board2[1][1] . " wins diag\n";
+                $str = $board[1][1];
+                return $str;
             } else if ($board2[2][0] == $board2[1][1] && $board2[1][1] == $board2[0][2]) {
-                echo $board2[1][1] . " wins diag2\n";
+                $str = $board2[1][1];
+                return $str;
             } else {
-                echo " tie";
+                return " tie";
             }
         }
         else if ($this->verificarBoard($board) == true) {
-            $this->affichage($board);
+            //$this->affichage($board);
             foreach ($board as $column) {
-                foreach ($column as $line) {
-                    /*if ($column[$line] == $column[$line] && $column[$line] == $column[$line]) {
-                        return $column[$line] . " wins";*/
-                }
                 if ($column[0] == $column[1] && $column[1] == $column[2]) {
-                    echo $column[0] . $column[1] . $column[2] . " wins\n";
+                    $str = $column[0];
+                    return $str;
                 }
             }
+            $j = 0;
+            for($i = 0; $i < 3; ++$i){
+                $k = $j;
+                if ($board[$k][$i] == $board[$k+1][$i] && $board[$k+1][$i] == $board[$k+2][$i]) {
+                    $str = $board[$k][$i];
+                    return $str;
+                } 
+                ++$k;
+            } 
             if ($board[0][0] == $board[1][1] && $board[1][1] == $board[2][2]) {
-                echo $board[1][1] . " wins diag1\n";
+                $str = $board[1][1];
+                return $str;
             } else if ($board[2][0] == $board[1][1] && $board[1][1] == $board[0][2]) {
-                echo $board[1][1] . " wins diag2\n";
+                $str = $board[1][1];
+                return $str;
+            } else{
+                return "tie";
             }
-
         }else {
-            echo "tie\n";
+            return "tie";
         }
-        return "";
+        return "tie";
     }
 }
 ?>
