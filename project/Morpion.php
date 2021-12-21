@@ -12,7 +12,6 @@ final class Morpion
             return 'Format invalide';
         }
     }
-
     function verificarBoard($board)
     {
         if (is_array($board)) {
@@ -73,7 +72,7 @@ final class Morpion
     {
         if ($this->verificarBoard($board) == false) {
             $board2 = $this->convertString($board);
-            //$this->affichage($board2);
+            $nbligne = count($board2);
             foreach ($board2 as $column) {     
                 if ($column[0] == $column[1] && $column[1] == $column[2]) {
                     $str = $board[0];
@@ -100,30 +99,36 @@ final class Morpion
             }
         }
         else if ($this->verificarBoard($board) == true) {
-            //$this->affichage($board);
+            $nbligne = count($board);
             foreach ($board as $column) {
+
                 if ($column[0] == $column[1] && $column[1] == $column[2]) {
                     $str = $column[0];
                     return $str;
                 }
             }
             $j = 0;
-            for($i = 0; $i < 3; ++$i){
+            for($i = 0; $i < $nbligne-1; ++$i){
                 $k = $j;
-                if ($board[$k][$i] == $board[$k+1][$i] && $board[$k+1][$i] == $board[$k+2][$i]) {
-                    $str = $board[$k][$i];
-                    return $str;
-                } 
-                ++$k;
+                while($k < $nbligne && nbligne == 0){
+                    if ($board[$k][$i] == $board[$k+1][$i] && $board[$k+1][$i] == $board[$k+2][$i]) {
+                        $str = $board[$k][$i];
+                        return $str;
+                    } 
+                    ++$k;
+                }
             } 
-            if ($board[0][0] == $board[1][1] && $board[1][1] == $board[2][2]) {
-                $str = $board[1][1];
-                return $str;
-            } else if ($board[2][0] == $board[1][1] && $board[1][1] == $board[0][2]) {
-                $str = $board[1][1];
-                return $str;
-            } else{
-                return "tie";
+            $i = $nbligne-1;
+            while($i == 0){
+                if ($board[$i][$i] == $board[$i-1][$i-1] && $board[$i-1][$i-1] == $board[$i-2][$i-2] && $i-2 == 0) {
+                    $str = $board[$i][$i];
+                    return $str;
+                } else if ($board[$i-$i][$i] == $board[$i+1-$i][$i-$i+1] && $board[$i+1-$i ][$i-$i+1] == $board[$i][$i-$i] && $i-$i+1 == 1) {
+                    $str = $board[$i+1-$i][$i+1-$i];
+                    return $str;
+                } else{
+                    --$i;
+                }
             }
         }else {
             return "tie";
