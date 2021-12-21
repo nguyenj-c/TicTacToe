@@ -6,29 +6,6 @@ require 'Morpion.php';
 
 final class MorpionTest extends TestCase
 {
-    function testMorpionType()
-    {
-        $morpion = new Morpion();
-        $board = "OXXOOOXOX";
-        $board2 = [
-            ['O', 'X', 'X'],
-            ['O', 'O', 'O'],
-            ['X', 'O', 'X'],
-        ];
-        if(gettype($board) == 'string'){
-            $board = $morpion->convertString($board);
-        } 
-        $this->assertEquals($board,$board2);
-    }
-
-    public function line(){
-        return [
-            ['O', 'O', 'O'],
-            ['X', 'X', 'O'],
-            ['O', 'X', 'X'],
-        ];
-    }
-
     public function winningDiagonals(){
         return [
             'diag2' =>[
@@ -56,7 +33,7 @@ final class MorpionTest extends TestCase
     }
     public function winningLine(){
         return [
-            'line' =>[
+            'board-3_sample-1' =>[
                 [
                     ['O', 'O', 'O'],
                     ['X', 'X', 'O'],
@@ -64,7 +41,7 @@ final class MorpionTest extends TestCase
                 ],
                 'O'
             ],            
-            'line2' =>[
+            'board-3_sample-2' =>[
                 [
                     ['X', 'X', 'O'],
                     ['O', 'O', 'O'],
@@ -72,14 +49,32 @@ final class MorpionTest extends TestCase
                 ],
                 'O'
             ],
-            'line3' =>[
+            'board-3_sample-3' =>[
                 [
                     ['X', 'X', 'O'],
                     ['O', 'X', 'X'],
                     ['O', 'O', 'O'],
                 ],
                 'O'
-            ]
+            ],
+            'board-4_sample-1' =>[
+                [
+                    ['X', 'X', 'O', 'X'],
+                    ['O', 'X', 'X', 'X'],
+                    ['O', 'O', 'O', 'O'],
+                    ['O', 'X', 'O', 'X'],
+                ],
+                'O'
+            ],
+            'board-4_sample-2' =>[
+                [
+                    ['X', 'X', 'O', 'X'],
+                    ['X', 'X', 'X', 'X'],
+                    ['O', 'O', 'O', 'X'],
+                    ['O', 'X', 'O', 'O'],
+                ],
+                'X'
+            ],           
         ];
     }
     public function winningColumn(){
@@ -107,7 +102,26 @@ final class MorpionTest extends TestCase
                     ['X', 'O', 'O'],
                 ],
                 'O',   
-            ]
+            ],
+            'board-4_sample_column-1' =>[
+                [
+                    ['X', 'X', 'O', 'X'],
+                    ['X', 'X', 'X', 'X'],
+                    ['O', 'O', 'O', 'X'],
+                    ['O', 'X', 'O', 'X'],
+                ],
+                'X'
+            ],  
+            'board-4_sample_column-2' =>[
+                [
+                    ['X', 'X', 'O', 'X'],
+                    ['X', 'X', 'O', 'O'],
+                    ['O', 'O', 'O', 'X'],
+                    ['O', 'X', 'O', 'X'],
+                ],
+                'O'
+            ],
+            
         ];
     }
     public function winningTie(){
@@ -135,7 +149,16 @@ final class MorpionTest extends TestCase
                     ['X', 'O', 'O'],
                 ],
                 'tie',   
-            ]
+            ],
+            'board-4_sample_tie-1' =>[
+                [
+                    ['X', 'X', 'O', 'X'],
+                    ['X', 'X', 'X', 'O'],
+                    ['O', 'O', 'O', 'X'],
+                    ['O', 'X', 'O', 'X'],
+                ],
+                'tie'
+            ],  
         ];
     }
     /**
