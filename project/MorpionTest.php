@@ -6,6 +6,7 @@ require 'Morpion.php';
 
 final class MorpionTest extends TestCase
 {
+
     public function winningDiagonals(){
         return [
             'diag2' =>[
@@ -16,7 +17,7 @@ final class MorpionTest extends TestCase
                 ],
                 'O',
             ],
-            'strDiag1' =>[
+            'strDiag2' =>[
                  "XXOXOOOOX",
                  'O',
             ],
@@ -28,7 +29,45 @@ final class MorpionTest extends TestCase
                     ['O', 'O', 'X'],
                 ],
                 'X',
-            ]
+            ],
+            'board-4_sample_diag_1' =>[
+                [
+                    ['X', 'X', 'O', 'X'],
+                    ['X', 'X', 'O', 'X'],
+                    ['O', 'O', 'X', 'O'],
+                    ['O', 'X', 'O', 'X'],
+                ],
+                'X',
+            ],
+            'board-4_sample_diag_2' =>[
+                [
+                    ['X', 'X', 'O', 'O'],
+                    ['X', 'O', 'O', 'X'],
+                    ['X', 'O', 'X', 'O'],
+                    ['O', 'X', 'O', 'X'],
+                ],
+                'O',
+            ],
+            'board-5_sample_diag_2' =>[
+                [
+                    ['X', 'X', 'O', 'O','X'],
+                    ['X', 'O', 'O', 'X','X'],
+                    ['X', 'O', 'X', 'O','O'],
+                    ['O', 'X', 'O', 'X','X'],
+                    ['X', 'X', 'O', 'X','O'],
+                ],
+                'X',
+            ],
+            'board-5_sample_diag_1' =>[
+                [
+                    ['X', 'X', 'O', 'O','X'],
+                    ['X', 'X', 'O', 'O','X'],
+                    ['X', 'O', 'X', 'O','O'],
+                    ['O', 'O', 'O', 'X','X'],
+                    ['X', 'X', 'O', 'X','X'],
+                ],
+                'X',
+            ],
         ];
     }
     public function winningLine(){
@@ -39,7 +78,7 @@ final class MorpionTest extends TestCase
                     ['X', 'X', 'O'],
                     ['O', 'X', 'X'],
                 ],
-                'O'
+                'O',
             ],            
             'board-3_sample-2' =>[
                 [
@@ -47,34 +86,35 @@ final class MorpionTest extends TestCase
                     ['O', 'O', 'O'],
                     ['O', 'X', 'X'],
                 ],
-                'O'
+                'O',
             ],
             'board-3_sample-3' =>[
                 [
-                    ['X', 'X', 'O'],
+                    ['X', 'O', 'O'],
                     ['O', 'X', 'X'],
-                    ['O', 'O', 'O'],
+                    ['X', 'X', 'X'],
                 ],
-                'O'
-            ],
+                'X',
+            ],            
             'board-4_sample-1' =>[
-                [
-                    ['X', 'X', 'O', 'X'],
-                    ['O', 'X', 'X', 'X'],
-                    ['O', 'O', 'O', 'O'],
-                    ['O', 'X', 'O', 'X'],
-                ],
-                'O'
-            ],
-            'board-4_sample-2' =>[
                 [
                     ['X', 'X', 'O', 'X'],
                     ['X', 'X', 'X', 'X'],
                     ['O', 'O', 'O', 'X'],
                     ['O', 'X', 'O', 'O'],
                 ],
-                'X'
-            ],           
+                'X',
+            ],
+            'board-4_sample-2' =>[
+                [
+                    ['X', 'X', 'O', 'O'],
+                    ['O', 'O', 'O', 'X'],
+                    ['X', 'X', 'X', 'X'],
+                    ['O', 'O', 'O', 'X'],
+                ],
+                'X',
+            ],  
+
         ];
     }
     public function winningColumn(){
@@ -89,19 +129,19 @@ final class MorpionTest extends TestCase
             ],
             'column2' =>[
                 [
-                    ['X', 'O', 'X'],
-                    ['X', 'O', 'O'],
-                    ['O', 'O', 'X'],
+                    ['X', 'X', 'O'],
+                    ['O', 'X', 'X'],
+                    ['X', 'X', 'O'],
                 ],
-                'O',    
+                'X',    
             ],
             'column3' =>[
                 [
-                    ['O', 'X', 'O'],
-                    ['X', 'X', 'O'],
-                    ['X', 'O', 'O'],
+                    ['O', 'O', 'X'],
+                    ['O', 'X', 'X'],
+                    ['X', 'O', 'X'],
                 ],
-                'O',   
+                'X',   
             ],
             'board-4_sample_column-1' =>[
                 [
@@ -110,7 +150,7 @@ final class MorpionTest extends TestCase
                     ['O', 'O', 'O', 'X'],
                     ['O', 'X', 'O', 'X'],
                 ],
-                'X'
+                'X',
             ],  
             'board-4_sample_column-2' =>[
                 [
@@ -119,7 +159,7 @@ final class MorpionTest extends TestCase
                     ['O', 'O', 'O', 'X'],
                     ['O', 'X', 'O', 'X'],
                 ],
-                'O'
+                'O',
             ],
             
         ];
@@ -153,21 +193,39 @@ final class MorpionTest extends TestCase
             'board-4_sample_tie-1' =>[
                 [
                     ['X', 'X', 'O', 'X'],
-                    ['X', 'X', 'X', 'O'],
-                    ['O', 'O', 'O', 'X'],
-                    ['O', 'X', 'O', 'X'],
+                    ['O', 'O', 'X', 'O'],
+                    ['X', 'O', 'X', 'X'],
+                    ['O', 'X', 'O', 'O'],
                 ],
-                'tie'
+                'tie',
+            ], 
+            'board-4_sample_tie-2' =>[
+                [
+                    ['X', 'X', 'O', 'X'],
+                    ['O', 'X', 'O', 'O'],
+                    ['X', 'O', 'O', 'X'],
+                    ['O', 'X', 'X', 'O'],
+                ],
+                'tie',
             ],  
         ];
     }
     public function notFinished(){
         return [
-            'board-4_sample_nf2' =>[
+            'board-3_sample_nf2' =>[
                 [
                     ['O', '', 'O'],
                     ['X', 'X', ''],
                     ['', 'O', 'X'],
+                ],
+                'In progress',
+            ],
+            'board-4_sample_nf2' =>[
+                [
+                    ['O', '', 'O','O'],
+                    ['X', 'X', '','X'],
+                    ['', 'O', 'X','O'],
+                    ['O', '', 'X','O'],
                 ],
                 'In progress',
             ],
@@ -214,11 +272,14 @@ final class MorpionTest extends TestCase
         $morpion = new Morpion();
         $this->assertEquals($morpion->andTheWinnerIs($grid), $winner);
     }
-    public function testNotFinished($grid, $winner)
+    /**
+     * @dataProvider notFinished
+     */
+    /*public function testNotFinished($grid, $winner)
     {
         $morpion = new Morpion();
         $this->assertEquals($morpion->andTheWinnerIs($grid), $winner);
-    }
+    }*/
 }
 
 
