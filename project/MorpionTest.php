@@ -161,6 +161,27 @@ final class MorpionTest extends TestCase
             ],  
         ];
     }
+    public function notFinished(){
+        return [
+            'board-4_sample_nf2' =>[
+                [
+                    ['O', '', 'O'],
+                    ['X', 'X', ''],
+                    ['', 'O', 'X'],
+                ],
+                'In progress',
+            ],
+            'board-4_sample_nf' =>[
+                [
+                    ['X', '', 'O', 'X'],
+                    ['', 'O', 'X', 'O'],
+                    ['X', 'O', '', 'X'],
+                    ['', 'X', 'O', 'X'],
+                ],
+                'In progress',
+            ],  
+        ];
+    }
     /**
      * @dataProvider winningDiagonals
      */
@@ -193,25 +214,11 @@ final class MorpionTest extends TestCase
         $morpion = new Morpion();
         $this->assertEquals($morpion->andTheWinnerIs($grid), $winner);
     }
-    /*function test(){
+    public function testNotFinished($grid, $winner)
+    {
         $morpion = new Morpion();
-        $diag1 = [
-            ['X', 'O', 'O'],
-            ['O', 'X', 'O'],
-            ['O', 'O', 'X'],
-        ];
-        $diag2 = "OOXOXXXOX";
-        $line = [
-            ['O', 'O', 'O'],
-            ['X', 'X', 'O'],
-            ['O', 'O', 'X'],
-        ];
-        $column = "XOXXOOXOO";
-        echo($morpion->andTheWinnerIs($diag1));
-        echo($morpion->andTheWinnerIs($diag2));
-        echo($morpion->andTheWinnerIs($line));
-        echo($morpion->andTheWinnerIs($column));
-    }*/
+        $this->assertEquals($morpion->andTheWinnerIs($grid), $winner);
+    }
 }
 
 
