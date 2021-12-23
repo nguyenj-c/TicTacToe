@@ -2,10 +2,14 @@
 Faire :
 
 ```compose install```
+
 Pour télécharger le dossier vendor avec PHPUnit
+
+Puis
+
 ```docker-compose build```
 
-Puis 
+Et enfin 
 
 ```docker-compose up```
 
