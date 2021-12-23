@@ -4,79 +4,89 @@ final class Morpion
 {
     function convertString($board)
     {
-        $arr = str_split($board);
-        $tableau = array_chunk($arr, 3, false);
-        return $tableau;
+        if(!is_array($board)){
+            $arr = str_split($board);
+            $nb = count($arr);
+            $element = sqrt($nb);
+            $tableau = array_chunk($arr, $element, false);
+            return $tableau;
+        }
+        return $board;    
     }
 
-    function verifDiagonale($board){
+    function verifCombi($board){
+        $nbligne = count($board);
+        $ligne = $nbligne-1;
+        $diag = $this->diagonale($board);
+        if(isset($diag)){
+            return $diag;
+        }
+        for($i = 0; $i < $nbligne;++$i){
+            $j = 0;
+            return $this->line_column($board,$i,$j);
+        }
+    }
+    function theWinner($board){
+        $str = $this->verifCombi($board);
+        if(!isset($str)){
+            return 'tie';
+        }
+        return $str;
+
+    }
+    function diagonale($board){
         $nbligne = count($board);
         $ligne = $nbligne-1;
         for($i = 0; $i+1 < $nbligne ; ++$i){
-            if ($board[$i][$i] == $board[$i+1][$i+1]){
-                $str = $board[$i][$i];
-                return $board[$i][$i];
-            }else if ($board[0][$ligne] == $board[$i][$ligne-$i]){
-                $str = $board[$i][$ligne-$i];
-                return $board[$i][$ligne-$i];
-            }else{
+            if ($board[$i][$i] != $board[$i+1][$i+1]){
                 break;
-            }   
+            }
+            if($i+1 == $ligne){
+                return $board[$i+1][$i+1];
+            }  
         } 
-        return 'tie';
+        for($i = 0; $i < $nbligne ; ++$i){
+            if ($board[0][$ligne] != $board[$i][$ligne-$i]){
+                break;
+            }
+            if($i == $ligne){
+                return $board[0][$ligne];
+            } 
+        } 
     }
-
-    function verifLine_Column($board){
+    function line_column($board){
         $nbligne = count($board);
         $ligne = $nbligne-1;
-        for($i = 0; $i < $nbligne; ++$i){
-            for($j = $ligne; $j+1 < $nbligne; ++$j){
-                if (($board[$i][$j] != $board[$i][$j+1])){
-                    break;
-                }
-                if($i == $ligne){
-                    $str = $board[$i][$j];
-                }
-            }
-        } 
-        for($i = 0; $i < $nbligne; ++$i){
-            for($j = $ligne; $j+1 < $nbligne; ++$j){
-                if (($board[$j][$i] != $board[$j+1][$i])){
-                    break;
-                }
-                if($i  == $ligne){
-                    $str = $board[$j][$i];
+        $k = 0;
+        for($i = 0; $i,$k+2 < $nbligne;){
+            if (($board[$k][$i] == $board[$k+1][$i]) && ($board[$k][$i] == $board[$ligne][$i])) {
+                if ($k+2 == $ligne){
+                    $str = $board[$k][$i];
                     return $str;
                 }
+            } 
+            if (($board[$i][$k] == $board[$i][$k+1]) && ($board[$i][$k] == $board[$i][$ligne])) {
+                if ($k+2 == $ligne){
+                    $str = $board[$i][$k];
+                    return $str;
+                }
+            } 
+            if($k+2 == $ligne){
+                if($i == $ligne){
+                    break;
+                }
+                ++$i;
+                $k = 0;
             }
-        }
-    } 
-    function winner($board){
-        $this->verifDiagonale($board);
-        $this->verifLine_Column($board);
+            ++$k;
+        }   
     }
-
     function andTheWinnerIs($board): string
     {
-        if (!is_array($board)) {
-            $board2 = $this->convertString($board);
-            $nbligne = count($board2);
-            $str = $this->verifDiagonale($board2);
-            return $str;
-        }
-        $nbligne2 = count($board);
-        $str1 = $this->verifLine_Column($board);
-        $str = $this->verifDiagonale($board);
-        if(isset($str)){
-            $result = $str;
-        }else if(isset($str1)){
-            $result = $str1;
-        }
-        else
-        {
-            $result = "tie";
-        }
-        return $result;     
+        $board2 = $this->convertString($board);
+        $nbligne = count($board2);
+        $str = $this->theWinner($board2);
+        return $str;     
     }
 }    
 ?>
