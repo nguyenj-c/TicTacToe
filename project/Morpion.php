@@ -9,26 +9,22 @@ final class Morpion
         $boardSize = sqrt($nbElement);
         return array_chunk($array, $boardSize, false); 
     }
-    private function checkCombination(array $board) : string
+    private function checkWinner(array $board) : string
     {
         $nbLine = count($board);
         $resultDiagonal = $this->checkDiagonalWinner($board);
-        if(isset($resultDiagonal)){
+        if($resultDiagonal != ""){
             return $resultDiagonal;
         }
         for($i = 0; $i < $nbLine;++$i){
-            $result = $this->line_column($board);
+            $result = $this->checkLineColumn($board);
             if(!isset($result)){
                 $result = "tie";
             }
         }
         return $result;
     }
-    private function theWinner(array $board) : string
-    {
-        return $this->checkCombination($board);
-    }
-    private function checkDiagonalWinner(array $board)
+    private function checkDiagonalWinner(array $board) : string 
     {
         $nbLine = count($board);
         $nbElement = $nbLine-1;
@@ -37,7 +33,7 @@ final class Morpion
                 break;
             }
             if($i == $nbElement){
-                return $board[$nbElement][$nbElement];
+                $result =  $board[$nbElement][$nbElement];
             }  
         } 
         for($i = 0; $i < $nbLine ; ++$i){
@@ -45,11 +41,16 @@ final class Morpion
                 break;
             }
             if($i == $nbElement){
-                return $board[$i][$nbElement-$i];
+                $result = $board[$i][$nbElement-$i];
             } 
         }
+        if(!isset($result)){
+            $result = "";
+        }
+        return $result;
     }
-    private function line_column($board){
+    private function checkLineColumn(array $board) // : string to implement
+    {
         $nbligne = count($board);
         $ligne = $nbligne-1;
         $k = 0;
@@ -81,7 +82,7 @@ final class Morpion
         if(!is_array($board)){
             $board = $this->convertString($board);
         }
-        $str = $this->theWinner($board);
+        $str = $this->checkWinner($board);
         return $str;     
     }
 }    
