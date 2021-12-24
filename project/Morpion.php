@@ -2,55 +2,54 @@
 
 final class Morpion
 {
-    function convertString(string $board) : array
+    private function convertString(string $board) : array
     {
         $array = str_split($board);
         $nbElement = count($array);
         $boardSize = sqrt($nbElement);
         return array_chunk($array, $boardSize, false); 
     }
-
-    function verifCombi($board){
-        $nbligne = count($board);
-        $ligne = $nbligne-1;
-        $diag = $this->diagonale($board);
-        if(isset($diag)){
-            return $diag;
+    private function checkCombination(array $board) : string
+    {
+        $nbLine = count($board);
+        $resultDiagonal = $this->checkDiagonalWinner($board);
+        if(isset($resultDiagonal)){
+            return $resultDiagonal;
         }
-        for($i = 0; $i < $nbligne;++$i){
-            $j = 0;
-            return $this->line_column($board,$i,$j);
+        for($i = 0; $i < $nbLine;++$i){
+            $result = $this->line_column($board);
+            if(!isset($result)){
+                $result = "tie";
+            }
         }
+        return $result;
     }
-    function theWinner($board){
-        $str = $this->verifCombi($board);
-        if(!isset($str)){
-            return 'tie';
-        }
-        return $str;
-
+    private function theWinner(array $board) : string
+    {
+        return $this->checkCombination($board);
     }
-    function diagonale($board){
-        $nbligne = count($board);
-        $ligne = $nbligne-1;
-        for($i = 0; $i+1 < $nbligne ; ++$i){
-            if ($board[$i][$i] != $board[$i+1][$i+1]){
+    private function checkDiagonalWinner(array $board)
+    {
+        $nbLine = count($board);
+        $nbElement = $nbLine-1;
+        for($i = 0; $i < $nbLine ; ++$i){
+            if ($board[$i][$i] != $board[$nbElement][$nbElement]){
                 break;
             }
-            if($i+1 == $ligne){
-                return $board[$i+1][$i+1];
+            if($i == $nbElement){
+                return $board[$nbElement][$nbElement];
             }  
         } 
-        for($i = 0; $i < $nbligne ; ++$i){
-            if ($board[0][$ligne] != $board[$i][$ligne-$i]){
+        for($i = 0; $i < $nbLine ; ++$i){
+            if ($board[0][$nbElement] != $board[$i][$nbElement-$i]){
                 break;
             }
-            if($i == $ligne){
-                return $board[0][$ligne];
+            if($i == $nbElement){
+                return $board[$i][$nbElement-$i];
             } 
-        } 
+        }
     }
-    function line_column($board){
+    private function line_column($board){
         $nbligne = count($board);
         $ligne = $nbligne-1;
         $k = 0;
@@ -77,14 +76,12 @@ final class Morpion
             ++$k;
         }   
     }
-    function andTheWinnerIs($board): string
+    public function andTheWinnerIs($board): string
     {
         if(!is_array($board)){
             $board = $this->convertString($board);
         }
-        $nbligne = count($board);
         $str = $this->theWinner($board);
         return $str;     
     }
 }    
-?>
