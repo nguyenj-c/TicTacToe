@@ -16,13 +16,7 @@ final class Morpion
         if($resultDiagonal != ""){
             return $resultDiagonal;
         }
-        for($i = 0; $i < $nbLine;++$i){
-            $result = $this->checkLineColumn($board);
-            if(!isset($result)){
-                $result = "tie";
-            }
-        }
-        return $result;
+        return $this->checkLineColumnWinner($board);
     }
     private function checkDiagonalWinner(array $board) : string 
     {
@@ -49,40 +43,42 @@ final class Morpion
         }
         return $result;
     }
-    private function checkLineColumn(array $board) // : string to implement
+    private function checkLineColumnWinner(array $board) : string
     {
-        $nbligne = count($board);
-        $ligne = $nbligne-1;
+        $nbLine = count($board);
+        $nbElement = $nbLine-1;
         $k = 0;
-        for($i = 0; $i,$k+2 < $nbligne;){
-            if (($board[$k][$i] == $board[$k+1][$i]) && ($board[$k][$i] == $board[$ligne][$i])) {
-                if ($k+2 == $ligne){
-                    $str = $board[$k][$i];
-                    return $str;
+        for($i = 0; $i,$k+2 < $nbLine;){
+            if (($board[$k][$i] == $board[$k+1][$i]) && ($board[$k][$i] == $board[$nbElement][$i])) {
+                if ($k+2 == $nbElement){
+                    $result = $board[$k][$i];
                 }
             } 
-            if (($board[$i][$k] == $board[$i][$k+1]) && ($board[$i][$k] == $board[$i][$ligne])) {
-                if ($k+2 == $ligne){
-                    $str = $board[$i][$k];
-                    return $str;
+            if (($board[$i][$k] == $board[$i][$k+1]) && ($board[$i][$k] == $board[$i][$nbElement])) {
+                if ($k+2 == $nbElement){
+                    $result = $board[$i][$k];
                 }
             } 
-            if($k+2 == $ligne){
-                if($i == $ligne){
+            if($k+2 == $nbElement){
+                if($i == $nbElement){
                     break;
                 }
                 ++$i;
                 $k = 0;
             }
             ++$k;
-        }   
+        } 
+        if(!isset($result)){
+            $result = "tie";
+        }
+        return $result; 
     }
     public function andTheWinnerIs($board): string
     {
         if(!is_array($board)){
             $board = $this->convertString($board);
         }
-        $str = $this->checkWinner($board);
-        return $str;     
+        $result = $this->checkWinner($board);
+        return $result;     
     }
 }    
