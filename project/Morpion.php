@@ -22,6 +22,7 @@ final class Morpion
         
         return $this->checkLineColumnWinner($board);
     }
+    
     private function checkDiagonalWinner(array $board) : string 
     {
         $nbLine = count($board);
@@ -51,6 +52,7 @@ final class Morpion
         
         return $result;
     }
+    
     private function checkLineColumnWinner(array $board) : string
     {
         $nbLine = count($board);
@@ -68,8 +70,8 @@ final class Morpion
                     $result = $board[$i][$k];
                 }
             } 
-            if ($k+2 == $nbElement){
-                if ($i == $nbElement){
+            if ($k+2 == $nbElement) {
+                if ($i == $nbElement) {
                     break;
                 }
                 ++$i;
