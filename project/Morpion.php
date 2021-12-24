@@ -2,16 +2,12 @@
 
 final class Morpion
 {
-    function convertString($board)
+    function convertString(string $board) : array
     {
-        if(!is_array($board)){
-            $arr = str_split($board);
-            $nb = count($arr);
-            $element = sqrt($nb);
-            $tableau = array_chunk($arr, $element, false);
-            return $tableau;
-        }
-        return $board;    
+        $array = str_split($board);
+        $nbElement = count($array);
+        $boardSize = sqrt($nbElement);
+        return array_chunk($array, $boardSize, false); 
     }
 
     function verifCombi($board){
@@ -83,9 +79,11 @@ final class Morpion
     }
     function andTheWinnerIs($board): string
     {
-        $board2 = $this->convertString($board);
-        $nbligne = count($board2);
-        $str = $this->theWinner($board2);
+        if(!is_array($board)){
+            $board = $this->convertString($board);
+        }
+        $nbligne = count($board);
+        $str = $this->theWinner($board);
         return $str;     
     }
 }    
