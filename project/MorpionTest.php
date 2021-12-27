@@ -276,7 +276,17 @@ final class MorpionTest extends TestCase
                     ['', 'X', 'O', 'X'],
                 ],
                 'In progress',
-            ],  
+            ], 
+            'board-5_sample_nf' =>[
+                [
+                    ['X', 'X', 'O', 'O','X'],
+                    ['X', 'X', 'O', 'O','X'],
+                    ['X', 'O', '', 'O','O'],
+                    ['O', 'O', 'X', 'X','X'],
+                    ['X', 'X', 'O', 'X','X'],
+                ],
+                'In progress',
+            ],
         ];
     }
     /**
@@ -314,11 +324,11 @@ final class MorpionTest extends TestCase
     /**
      * @dataProvider notFinished
      */
-    /*public function testNotFinished($grid, $winner)
+    public function testNotFinished($grid, $winner)
     {
         $morpion = new Morpion();
         $this->assertEquals($morpion->andTheWinnerIs($grid), $winner);
-    }*/
+    }
 }
 
 
