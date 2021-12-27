@@ -11,6 +11,23 @@ final class Morpion
         return array_chunk($array, $boardSize, false); 
     }
     
+    private function isNotFinished(array $board) : bool
+    {
+        $nbLine = count($board);
+        $nbElement = $nbLine-1;
+        $k = 0;
+        
+        for ($i = 0; $i < $nbLine;++$i) {
+            for ($k = 0; $k < $nbLine; ++$k) {
+                if ($board[$i][$k] == '') {
+                    return true;
+                } 
+            }
+        }
+
+        return false;
+    }
+    
     private function checkWinner(array $board) : string
     {
         $nbLine = count($board);
@@ -116,6 +133,10 @@ final class Morpion
     {
         if (!is_array($board)) {
             $board = $this->convertString($board);
+        }
+        
+        if($this->isNotFinished($board)){
+            return "In progress";
         }
         
         $result = $this->checkWinner($board);
