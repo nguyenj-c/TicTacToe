@@ -10,8 +10,26 @@ final class Morpion
         
         return array_chunk($array, $boardSize, false); 
     }
-    
-    private function isNotFinished(array $board) : bool
+
+    private function isNotFinished(array $board) : string
+    {
+        $nbLine = count($board);
+        $nbElement = $nbLine-1;
+        $k = 0;
+        
+        foreach($board as $value) {
+            $count = count($value);
+        }
+        if($count != $nbLine){
+            return "In progress";
+        }
+        if($this->isBlankValue($board)){
+            return "In progress";
+        }
+        return "";
+    }
+
+    private function isBlankValue(array $board) : bool
     {
         $nbLine = count($board);
         $nbElement = $nbLine-1;
@@ -24,7 +42,6 @@ final class Morpion
                 } 
             }
         }
-
         return false;
     }
     
@@ -135,10 +152,9 @@ final class Morpion
             $board = $this->convertString($board);
         }
         
-        if($this->isNotFinished($board)){
+        if($this->isNotFinished($board) != ""){
             return "In progress";
         }
-        
         $result = $this->checkWinner($board);
         
         return $result;     
