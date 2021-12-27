@@ -305,10 +305,14 @@ final class MorpionTest extends TestCase
                 ],
                 'In progress',
             ],
-            'strTie_size4' =>[
-                "XOOOXOXXOXOXOXX",
+            'strTie_size' =>[
+                "XOOOXOXXOXO",
                 'In progress',
             ],  
+            'strTie_size3' =>[
+                "XOO",
+                'In progress',
+            ],
         ];
     }
     /**
