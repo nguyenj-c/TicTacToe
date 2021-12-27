@@ -14,26 +14,21 @@ final class Morpion
     private function isNotFinished(array $board) : string
     {
         $nbLine = count($board);
-        $nbElement = $nbLine-1;
-        $k = 0;
         
         foreach($board as $value) {
             $count = count($value);
         }
-        if($count != $nbLine){
+
+        if($count != $nbLine || $this->isBlankValue($board)){
             return "In progress";
         }
-        if($this->isBlankValue($board)){
-            return "In progress";
-        }
+
         return "";
     }
 
     private function isBlankValue(array $board) : bool
     {
         $nbLine = count($board);
-        $nbElement = $nbLine-1;
-        $k = 0;
         
         for ($i = 0; $i < $nbLine;++$i) {
             for ($k = 0; $k < $nbLine; ++$k) {
