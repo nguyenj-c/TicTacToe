@@ -19,8 +19,13 @@ final class Morpion
         if ($resultDiagonal != "") {
             return $resultDiagonal;
         }
-        
-        return $this->checkLineColumnWinner($board);
+
+        $resultLine = $this->checkLineWinner($board);
+
+        if ($resultLine != "") {
+            return $resultLine;
+        }
+        return $this->checkColumnWinner($board);
     }
     
     private function checkDiagonalWinner(array $board) : string 
@@ -53,40 +58,60 @@ final class Morpion
         return $result;
     }
     
-    private function checkLineColumnWinner(array $board) : string
+    
+    private function checkLineWinner(array $board) : string
     {
         $nbLine = count($board);
         $nbElement = $nbLine-1;
         $k = 0;
         
-        for ($i = 0; $i,$k+2 < $nbLine;) {
-            if (($board[$k][$i] == $board[$k+1][$i]) && ($board[$k][$i] == $board[$nbElement][$i])) {
-                if ($k+2 == $nbElement){
-                    $result = $board[$k][$i];
-                }
-            } 
-            if (($board[$i][$k] == $board[$i][$k+1]) && ($board[$i][$k] == $board[$i][$nbElement])) {
-                if ($k+2 == $nbElement){
-                    $result = $board[$i][$k];
-                }
-            } 
-            if ($k+2 == $nbElement) {
-                if ($i == $nbElement) {
+        for ($i = 0; $i < $nbLine;++$i) {
+
+            for ($k = 0; $k < $nbLine; ++$k) {
+
+                if (($board[$i][$k] != $board[$i][$nbElement])) {
                     break;
+                } 
+                if ($k == $nbElement) {
+                        $result = $board[$i][$k];
+                        break;                    
                 }
-                ++$i;
-                $k = 0;
-            }
-            ++$k;
+            }    
         }
         
-        if (!isset($result)) {
-            $result = "tie";
+        if(!isset($result)){
+            $result = "";
         }
         
         return $result; 
     }
-    
+
+    private function checkColumnWinner(array $board) : string
+    {
+        $nbLine = count($board);
+        $nbElement = $nbLine-1;
+        $k = 0;
+        
+        for ($i = 0; $i < $nbLine;++$i) {
+
+            for ($k = 0; $k < $nbLine; ++$k) {
+                if (($board[$k][$i] != $board[$nbElement][$i])) {
+                    break;
+                } 
+                if ($k == $nbElement) {
+                        $result = $board[$k][$i];
+                        break;
+                }
+            }
+        }
+
+        if (!isset($result)) {
+            $result = "tie";
+        }
+
+        return $result; 
+    }
+     
     public function andTheWinnerIs($board): string
     {
         if (!is_array($board)) {
