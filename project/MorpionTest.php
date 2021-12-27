@@ -21,7 +21,14 @@ final class MorpionTest extends TestCase
                  "XXOXOOOOX",
                  'O',
             ],
- 
+            'strDiag1' =>[
+                "XXOOXOOOX",
+                'X',
+           ],
+           'strDiag1_size4' =>[
+            "XXOOOXOOOOXXXOOX",
+            'X',
+            ],
             'diag1' =>[
                 [
                     ['X', 'O', 'O'],
@@ -124,6 +131,10 @@ final class MorpionTest extends TestCase
                 ],
                 'X',
             ],  
+            'strLine_size4' =>[
+                "OXOOOOXXXOOXXXXX",
+                'X',
+            ],
 
         ];
     }
@@ -181,7 +192,10 @@ final class MorpionTest extends TestCase
                 ],
                 'O',
             ], 
-            
+            'strLine_size4' =>[
+                "XOOOXOXXOOOXXOXX",
+                'O',
+            ],  
         ];
     }
     public function winningTie(){
@@ -247,6 +261,10 @@ final class MorpionTest extends TestCase
                 ],
                 'tie',
             ],
+            'strTie_size4' =>[
+                "XOOOXOXXOXOXXOXX",
+                'tie',
+            ],  
         ];
     }
     public function notFinished(){
@@ -276,7 +294,7 @@ final class MorpionTest extends TestCase
                     ['', 'X', 'O', 'X'],
                 ],
                 'In progress',
-            ], 
+            ],  
             'board-5_sample_nf' =>[
                 [
                     ['X', 'X', 'O', 'O','X'],
@@ -287,6 +305,10 @@ final class MorpionTest extends TestCase
                 ],
                 'In progress',
             ],
+            'strTie_size4' =>[
+                "XOOOXOXXOXOXOXX",
+                'In progress',
+            ],  
         ];
     }
     /**
@@ -330,6 +352,3 @@ final class MorpionTest extends TestCase
         $this->assertEquals($morpion->andTheWinnerIs($grid), $winner);
     }
 }
-
-
-?>
