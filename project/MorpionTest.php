@@ -113,6 +113,16 @@ final class MorpionTest extends TestCase
                     ['O', 'O', 'O', 'X'],
                 ],
                 'X',
+            ],
+            'board-5_sample_1' =>[
+                [
+                    ['X', 'X', 'O', 'O','X'],
+                    ['X', 'X', 'O', 'O','X'],
+                    ['X', 'O', 'O', 'O','O'],
+                    ['O', 'O', 'X', 'X','X'],
+                    ['X', 'X', 'X', 'X','X'],
+                ],
+                'X',
             ],  
 
         ];
@@ -161,6 +171,16 @@ final class MorpionTest extends TestCase
                 ],
                 'O',
             ],
+            'board-5_sample_column-1' =>[
+                [
+                    ['X', 'X', 'O', 'O','X'],
+                    ['X', 'X', 'O', 'O','X'],
+                    ['X', 'O', 'O', 'O','O'],
+                    ['O', 'O', 'O', 'X','X'],
+                    ['X', 'X', 'O', 'X','X'],
+                ],
+                'O',
+            ], 
             
         ];
     }
@@ -208,6 +228,25 @@ final class MorpionTest extends TestCase
                 ],
                 'tie',
             ],  
+            'board-4_sample_tie-2' =>[
+                [
+                    ['X', 'X', 'O', 'X'],
+                    ['O', 'X', 'O', 'O'],
+                    ['X', 'O', 'O', 'X'],
+                    ['O', 'X', 'X', 'O'],
+                ],
+                'tie',
+            ],
+            'board-5_sample_tie-1' =>[
+                [
+                    ['X', 'X', 'O', 'O','X'],
+                    ['X', 'X', 'O', 'O','X'],
+                    ['X', 'O', 'O', 'O','O'],
+                    ['O', 'O', 'X', 'X','X'],
+                    ['X', 'X', 'O', 'X','X'],
+                ],
+                'tie',
+            ],
         ];
     }
     public function notFinished(){
