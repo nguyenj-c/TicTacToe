@@ -7,140 +7,114 @@ final class Morpion
         $array = str_split($board);
         $nbElement = count($array);
         $boardSize = sqrt($nbElement);
-        
-        return array_chunk($array, $boardSize, false); 
+
+        return array_chunk($array, $boardSize, false);
     }
 
-    private function isNotFinished(array $board) : string
+    private function isFinished(array $board) : bool
     {
         $nbLine = count($board);
         $isBlank = false;
-        foreach($board as $line) {
+
+        foreach ($board as $line) {
             $count = count($line);
-            foreach($line as $column)
-            if($column == ''){
-                $isBlank = true;
-            }
-        }
-        if($count != $nbLine || $isBlank){
-            return "In progress";
-        }
-
-        return "";
-    }
-    
-    private function checkWinner(array $board) : string
-    {
-        $nbLine = count($board);
-        $resultDiagonal = $this->checkDiagonalWinner($board);
-        
-        if ($resultDiagonal != "") {
-            return $resultDiagonal;
-        }
-
-        $resultLine = $this->checkLineWinner($board);
-
-        if ($resultLine != "") {
-            return $resultLine;
-        }
-        return $this->checkColumnWinner($board);
-    }
-    
-    private function checkDiagonalWinner(array $board) : string 
-    {
-        $nbLine = count($board);
-        $nbElement = $nbLine-1;
-        
-        for ($i = 0; $i < $nbLine ; ++$i) {
-            if ($board[$i][$i] != $board[$nbElement][$nbElement]) {
-                break;
-            }
-            if($i == $nbElement){
-                $result =  $board[$nbElement][$nbElement];
-            }  
-        }
-        
-        for($i = 0; $i < $nbLine ; ++$i){
-            if ($board[0][$nbElement] != $board[$i][$nbElement-$i]) {
-                break;
-            }
-            if ($i == $nbElement) {
-                $result = $board[$i][$nbElement-$i];
-            } 
-        }
-        
-        if(!isset($result)){
-            $result = "";
-        }
-        
-        return $result;
-    }
-    
-    
-    private function checkLineWinner(array $board) : string
-    {
-        $nbLine = count($board);
-        $nbElement = $nbLine-1;
-        $k = 0;
-        
-        for ($i = 0; $i < $nbLine;++$i) {
-
-            for ($k = 0; $k < $nbLine; ++$k) {
-
-                if (($board[$i][$k] != $board[$i][$nbElement])) {
-                    break;
-                } 
-                if ($k == $nbElement) {
-                        $result = $board[$i][$k];
-                        break;                    
+            foreach ($line as $column) {
+                if ($column === '') {
+                    $isBlank = true;
                 }
-            }    
+            }
         }
-        
-        if(!isset($result)){
-            $result = "";
+        if ($count === $nbLine && false === $isBlank){
+            return true;
         }
-        
-        return $result; 
+
+        return false;
     }
 
-    private function checkColumnWinner(array $board) : string
+    private function findDiagonalWinner(array $board, int $boardSize) : ?string
     {
-        $nbLine = count($board);
-        $nbElement = $nbLine-1;
-        $k = 0;
-        
-        for ($i = 0; $i < $nbLine;++$i) {
+        $latestDiagonalIndex = $boardSize-1;
+        $winner = null;
 
-            for ($k = 0; $k < $nbLine; ++$k) {
-                if (($board[$k][$i] != $board[$nbElement][$i])) {
+        for ($firstDiagonalIndex = 0; $firstDiagonalIndex < $boardSize ; ++$firstDiagonalIndex) {
+            if ($board[$firstDiagonalIndex][$firstDiagonalIndex] !== $board[$latestDiagonalIndex][$latestDiagonalIndex]) {
+                break;
+            }
+            if ($firstDiagonalIndex === $latestDiagonalIndex) {
+                $winner = $board[$latestDiagonalIndex][$latestDiagonalIndex];
+            }
+        }
+
+        for ($secondDiagonalIndex = 0; $secondDiagonalIndex < $boardSize ; ++$secondDiagonalIndex) {
+            if ($board[0][$latestDiagonalIndex] !== $board[$secondDiagonalIndex][$latestDiagonalIndex-$secondDiagonalIndex]) {
+                break;
+            }
+            if ($secondDiagonalIndex === $latestDiagonalIndex) {
+                $winner = $board[$secondDiagonalIndex][$latestDiagonalIndex-$secondDiagonalIndex];
+            }
+        }
+
+        return $winner;
+    }
+
+
+    private function findLineWinner(array $board, int $boardSize) : ?string
+    {
+        $lastLineIndex = $boardSize-1;
+        $winner = null;
+
+        for ($lineIndex = 0; $lineIndex < $boardSize;++$lineIndex) {
+            for ($columnIndex = 0; $columnIndex < $boardSize; ++$columnIndex) {
+                if ($board[$lineIndex][$columnIndex] !== $board[$lineIndex][$lastLineIndex]) {
                     break;
-                } 
-                if ($k == $nbElement) {
-                        $result = $board[$k][$i];
-                        break;
+                }
+                if ($columnIndex === $lastLineIndex) {
+                    $winner = $board[$lineIndex][$columnIndex];
+                    break;
                 }
             }
         }
 
-        if (!isset($result)) {
-            $result = "tie";
+        return $winner;
+    }
+
+    private function findColumnWinner(array $board, int $boardSize) : ?string
+    {
+        $lastColumnIndex = $boardSize-1;
+        $winner = null;
+
+        for ($columnIndex = 0; $columnIndex < $boardSize; ++$columnIndex) {
+            for ($lineIndex = 0; $lineIndex < $boardSize; ++$lineIndex) {
+                if ($board[$lineIndex][$columnIndex] !== $board[$lastColumnIndex][$columnIndex]) {
+                    break;
+                }
+                if ($lineIndex === $lastColumnIndex) {
+                    $winner = $board[$lineIndex][$columnIndex];
+                    break;
+                }
+            }
         }
 
-        return $result; 
+        return $winner;
     }
-     
-    public function andTheWinnerIs($board): string
+
+    public function andTheWinnerIs(array|string $board): string
     {
-        if (!is_array($board)) {
+        if (false === is_array($board)) {
             $board = $this->convertString($board);
         }
-        
-        if($this->isNotFinished($board) != ""){
+
+        if (false === $this->isFinished($board)) {
             return "In progress";
         }
-        $result = $this->checkWinner($board);
-        
-        return $result;     
+
+        $boardSize = count($board);
+
+        return
+            $this->findDiagonalWinner($board, $boardSize)
+            ?? $this->findLineWinner($board, $boardSize)
+            ?? $this->findColumnWinner($board, $boardSize)
+            ?? "tie"
+        ;
     }
-}    
+}
