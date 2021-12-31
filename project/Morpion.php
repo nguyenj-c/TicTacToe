@@ -58,41 +58,32 @@ final class Morpion
     }
 
 
-    private function findLineWinner(array $board, int $boardSize) : ?string
+        private function findColumnLineWinner(array $board, int $boardSize,  bool $isLine) : ?string
     {
-        $lastLineIndex = $boardSize-1;
-        $winner = null;
-
-        for ($lineIndex = 0; $lineIndex < $boardSize;++$lineIndex) {
-            for ($columnIndex = 0; $columnIndex < $boardSize; ++$columnIndex) {
-                if ($board[$lineIndex][$columnIndex] !== $board[$lineIndex][$lastLineIndex]) {
-                    break;
-                }
-                if ($columnIndex === $lastLineIndex) {
-                    $winner = $board[$lineIndex][$columnIndex];
-                    break;
-                }
-            }
-        }
-
-        return $winner;
-    }
-
-    private function findColumnWinner(array $board, int $boardSize) : ?string
-    {
-        $lastColumnIndex = $boardSize-1;
+        $lastIndex = $boardSize-1;
         $winner = null;
 
         for ($columnIndex = 0; $columnIndex < $boardSize; ++$columnIndex) {
             for ($lineIndex = 0; $lineIndex < $boardSize; ++$lineIndex) {
-                if ($board[$lineIndex][$columnIndex] !== $board[$lastColumnIndex][$columnIndex]) {
-                    break;
+                if($isLine == true){
+                    if ($board[$columnIndex][$lineIndex] !== $board[$columnIndex][$lastIndex]) {
+                        break;
+                    }
+                    if ($lineIndex === $lastIndex) {
+                        $winner = $board[$columnIndex][$lineIndex];
+                        break;
+                    }
+                } else{
+                    if ($board[$lineIndex][$columnIndex] !== $board[$lastIndex][$columnIndex]) {
+                        break;
+                    }
+                    if ($lineIndex === $lastIndex) {
+                        $winner = $board[$lineIndex][$columnIndex];
+                        break;
+                    }
                 }
-                if ($lineIndex === $lastColumnIndex) {
-                    $winner = $board[$lineIndex][$columnIndex];
-                    break;
-                }
-            }
+
+            }    
         }
 
         return $winner;
@@ -112,8 +103,8 @@ final class Morpion
 
         return
             $this->findDiagonalWinner($board, $boardSize)
-            ?? $this->findLineWinner($board, $boardSize)
-            ?? $this->findColumnWinner($board, $boardSize)
+            ?? $this->findColumnLineWinner($board, $boardSize, true)
+            ?? $this->findColumnLineWinner($board, $boardSize, false)
             ?? "tie"
         ;
     }
