@@ -14,21 +14,13 @@ final class Morpion
     private function isFinished(array $board) : bool
     {
         $nbLine = count($board);
-        $isBlank = false;
 
-        foreach ($board as $line) {
-            $count = count($line);
-            foreach ($line as $column) {
-                if ($column === '') {
-                    $isBlank = true;
-                }
+        return array_reduce($board, function(bool $isBlank, array $line) use($nbLine) : bool {
+            if (count($line) !== $nbLine || false !== array_search( '', $line)){
+                $isBlank = false;
             }
-        }
-        if ($count === $nbLine && false === $isBlank){
-            return true;
-        }
-
-        return false;
+            return $isBlank;
+        }, true);
     }
 
     private function findDiagonalWinner(array $board, int $boardSize) : ?string
