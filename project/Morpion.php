@@ -61,18 +61,16 @@ final class Morpion
 
     private function findLineWinner(array $board, int $boardSize) : ?string
     {
-        $winner = null;
         $lineO = array_fill(0, $boardSize, 'O');
         $lineX = array_fill(0, $boardSize, 'X');
 
-        foreach ($board as $line) {
-            if ($line === $lineO || $line === $lineX) {
+        return array_reduce($board, function(?string $winner, array $line) use($lineO,$lineX) : ?string 
+        {
+            if ($line === $lineX || $line === $lineO) {
                 $winner = $line[0];
-                break;
-            }       
-        }
-        
-        return $winner;
+            } 
+            return $winner;     
+        });
     }
 
     private function findColumnWinner(array $board, int $boardSize) : ?string
