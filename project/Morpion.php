@@ -61,21 +61,17 @@ final class Morpion
 
     private function findLineWinner(array $board, int $boardSize) : ?string
     {
-        $lastLineIndex = $boardSize-1;
         $winner = null;
+        $lineO = array_fill(0, $boardSize, 'O');
+        $lineX = array_fill(0, $boardSize, 'X');
 
-        for ($lineIndex = 0; $lineIndex < $boardSize;++$lineIndex) {
-            for ($columnIndex = 0; $columnIndex < $boardSize; ++$columnIndex) {
-                if ($board[$lineIndex][$columnIndex] !== $board[$lineIndex][$lastLineIndex]) {
-                    break;
-                }
-                if ($columnIndex === $lastLineIndex) {
-                    $winner = $board[$lineIndex][$columnIndex];
-                    break;
-                }
-            }
+        foreach ($board as $line) {
+            if ($line === $lineO || $line === $lineX) {
+                $winner = $line[0];
+                break;
+            }       
         }
-
+        
         return $winner;
     }
 
