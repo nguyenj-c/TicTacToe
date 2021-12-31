@@ -45,19 +45,15 @@ final class Morpion
             }
         }
 
-        for ($secondDiagonalIndex = 0; $secondDiagonalIndex < $boardSize ; ++$secondDiagonalIndex) {
-            if ($board[0][$latestDiagonalIndex] !== $board[$secondDiagonalIndex][$latestDiagonalIndex-$secondDiagonalIndex]) {
-                break;
-            }
-            if ($secondDiagonalIndex === $latestDiagonalIndex) {
-                $winner = $board[$secondDiagonalIndex][$latestDiagonalIndex-$secondDiagonalIndex];
-            }
-        }
-
         return $winner;
     }
 
-
+    private function findAntiDiagonalWinner(array $board, int $boardSize) : ?string
+    {
+        $boardRotate = array_map('array_reverse', array_map(null, ...$board));
+        
+        return $this->findDiagonalWinner($boardRotate, $boardSize);
+    }    
 
     private function findLineWinner(array $board, int $boardSize) : ?string
     {
@@ -94,6 +90,7 @@ final class Morpion
 
         return
             $this->findDiagonalWinner($board, $boardSize)
+            ?? $this->findAntiDiagonalWinner($board, $boardSize)
             ?? $this->findLineWinner($board, $boardSize)
             ?? $this->findColumnWinner($board, $boardSize)
             ?? "tie"
