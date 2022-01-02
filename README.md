@@ -35,7 +35,3 @@ Pour voir les tests effectués pour ce TicTacToe.
 Faites cette commande sur un terminal à la racine du projet ( normalement là ou se trouve le Readme.md )
 
 ```./vendor/phpunit/phpunit/phpunit ./project```
-
-# Non terminé/Piste de réflexions
-Exercice 3 et 4 non traitée mais des pistes de réflexions ont été faites sur le fait de préciser un nombre de tableau pour faire plus tard N X N avec pow() puis utiliser str_pad() pour compléter la chaîne de caractères pour faire en sorte d'avoir la N X N. Pour le tableau il aurait fallu faire une boucle puis faire un push de valeur vide jusqu'a un certain nombre et faire ainsi avec chaque array pour le dernier exercice j'avais réfléchi a  utiliser array_count_values. (Plus qu'a voir la pratique)
-
