@@ -1,7 +1,7 @@
 # Installation
 Faire :
 
-```compose install```
+```composer install```
 
 Pour télécharger le dossier vendor avec PHPUnit
 
@@ -14,7 +14,7 @@ Et enfin pour run le docker
 ```docker-compose up```
 
 # TicTacToe
-Le TicTacToe a été fait pour reconnaître les diagonales gagnantes, les lignes mais pour les colonnes.
+Le TicTacToe a été fait pour reconnaître les diagonales, les lignes et aussi les colonnes gagnantes.
 Avant tous, pour comprendre le code le 1er élément de board[Ligne][colonne] est la ligne et la 2eme est la colonne.
 nbElément = nbLigne -1
 
